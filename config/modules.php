@@ -200,10 +200,10 @@ return [
     */
 
     'composer' => [
-        'vendor' => env('MODULES_VENDOR', 'nwidart'),
+        'vendor' => env('MODULES_VENDOR', 'mojahid'),
         'author' => [
-            'name' => env('MODULES_NAME', 'Nicolas Widart'),
-            'email' => env('MODULES_EMAIL', 'n.widart@gmail.com'),
+            'name' => env('MODULES_NAME', 'Mojahid Islam'),
+            'email' => env('MODULES_EMAIL', 'raofahmedmojahid@gmail.com'),
         ],
         'composer-output' => false,
     ],

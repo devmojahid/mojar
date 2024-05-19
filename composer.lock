@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "88dc84c04883f30c24d5e96a94ea9b5b",
+    "content-hash": "1d2b1445f1e3bc228e838fc3b9e4f5ae",
     "packages": [
         {
             "name": "brick/math",
@@ -2329,16 +2329,16 @@
         },
         {
             "name": "nwidart/laravel-modules",
-            "version": "v11.0.3",
+            "version": "v11.0.10",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nWidart/laravel-modules.git",
-                "reference": "24c5ca340cf9d5cb8d71ebc27e8a5ac70e599a87"
+                "reference": "4522002fc94cf4a1555337394f7268dd14651806"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nWidart/laravel-modules/zipball/24c5ca340cf9d5cb8d71ebc27e8a5ac70e599a87",
-                "reference": "24c5ca340cf9d5cb8d71ebc27e8a5ac70e599a87",
+                "url": "https://api.github.com/repos/nWidart/laravel-modules/zipball/4522002fc94cf4a1555337394f7268dd14651806",
+                "reference": "4522002fc94cf4a1555337394f7268dd14651806",
                 "shasum": ""
             },
             "require": {
@@ -2399,7 +2399,7 @@
             ],
             "support": {
                 "issues": "https://github.com/nWidart/laravel-modules/issues",
-                "source": "https://github.com/nWidart/laravel-modules/tree/v11.0.3"
+                "source": "https://github.com/nWidart/laravel-modules/tree/v11.0.10"
             },
             "funding": [
                 {
@@ -2411,7 +2411,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2024-03-24T23:33:15+00:00"
+            "time": "2024-05-05T19:07:30+00:00"
         },
         {
             "name": "phpoption/phpoption",
@@ -8273,5 +8273,5 @@
         "php": "^8.2"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.3.0"
+    "plugin-api-version": "2.6.0"
 }
