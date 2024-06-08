@@ -30,8 +30,6 @@
             "Database\\Seeders\\": "database/seeders/"
         },
         "files": [
-            "app/Helpers/Hooks/Actions.php",
-            "app/Helpers/Hooks/Filters.php",
             "app/Helpers/Helpers.php"
         ]
     },
