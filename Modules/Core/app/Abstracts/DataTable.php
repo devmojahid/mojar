@@ -203,4 +203,98 @@ abstract class DataTable
             ]
         ];
     }
+
+    /**
+     * More actions for the datatable
+     * 
+     * @param mixed $row
+     * @return array the array of actions for the datatable
+     */
+
+    public function rowActions($row): array
+    {
+        return [
+            'edit' => [
+                'label' => 'Edit',
+                'url' => $this->currentUrl . '/' . $row->id . '/edit',
+            ],
+            'delete' => [
+                'label' => 'Delete',
+                'action' => 'delete',
+                'class' => 'text-danger',
+            ]
+        ];
+    }
+
+    /**
+     * Generates a formated row actions for the given value , row and index
+     * 
+     * @param mixed $value [the value of the row]
+     * @param mixed $row [the row]
+     * @param int $index [the index of the row]
+     * 
+     * @return string
+     */
+
+    public function rowActionsFormatter($value, $row, int $index): string
+    {
+        return view(
+            'backend::components.datatable.datatable_item',
+            [
+                'actions' => $this->rowActions($row),
+                'row' => $row,
+                'editUrl' => $this->currentUrl . '/' . $row->id . '/edit',
+                'value' => $value,
+            ]
+        )->render();
+    }
+
+    /**
+     * Set the data URL 
+     * 
+     * @param string $url
+     * @throws Exception
+     * @return void
+     */
+
+    public function setDataUrl(string $url): void
+    {
+        $this->dataUrl = $url;
+    }
+
+    /**
+     * Set the action URL
+     * 
+     * @param string $url
+     * @throws Exception
+     * @return void
+     */
+
+    public function setActionUrl(string $url): void
+    {
+        $this->actionUrl = $url;
+    }
+
+    /**
+     * Set the current URL
+     * 
+     * @param string $url
+     * @throws Exception
+     * @return void
+     */
+
+    public function setCurrentUrl(string $url): void
+    {
+        $this->currentUrl = $url;
+    }
+
+    /**
+     * Convert object to array
+     * 
+     * @return array the array of the object
+     */
+
+    public function toArray(): array
+    {
+    }
 }
