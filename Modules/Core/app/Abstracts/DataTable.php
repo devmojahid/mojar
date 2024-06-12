@@ -5,6 +5,9 @@ namespace Modules\Core\Abstracts;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Contracts\View\View;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Str;
 
 abstract class DataTable
 {
@@ -296,5 +299,177 @@ abstract class DataTable
 
     public function toArray(): array
     {
+        $searchFields = collect($this->searchField())->map(
+            function ($item, $key) {
+                $item['key'] = $key;
+                return $item;
+            }
+        )->values();
+
+        $columns = collect($this->columns())->map(
+            function ($item, $key) {
+                $item['key'] = $key;
+                $item['sortable'] = Arr::get($item, 'sortable', true);
+                unset($item['formatter']);
+
+                return $item;
+            }
+        )->values();
+
+        $actions = collect($this->actions())->map(
+            function ($label, $key) {
+                $item['key'] = $key;
+                $item['label'] = $label;
+                return $item;
+            }
+        )->values();
+
+        return [
+            'columns' => $columns,
+            'searchFields' => $searchFields,
+            'actions' => $actions,
+            'params' => $this->params,
+            'perPage' => $this->perPage,
+            'sortName' => $this->sortName,
+            'sortOrder' => $this->sortOrder,
+            'dataUrl' => $this->dataUrl,
+            'actionUrl' => $this->actionUrl,
+            'searchable' => $this->searchable,
+            'searchFieldTypes' => $this->searchFieldTypes(),
+            'table' => Crypt::encryptString(static::class),
+            'uniqueId' => $this->getUniqueId(),
+        ];
+    }
+
+    /**
+     * Get Data Render
+     * 
+     * @return array the array of the data render containing the data and the array
+     */
+
+    protected function getDataRender(): array
+    {
+        $uniqueId = $this->getUniqueId();
+        $searchFields = $this->searchField();
+
+        return [
+            'columns' => $this->columns(),
+            'actions' => $this->actions(),
+            'uniqueId' => $uniqueId,
+            'params' => $this->params,
+            'searchFields' => $searchFields,
+            'perPage' => $this->perPage,
+            'sortName' => $this->sortName,
+            'sortOrder' => $this->sortOrder,
+            'dataUrl' => $this->dataUrl,
+            'actionUrl' => $this->actionUrl,
+            'escapes' => $this->escapes,
+            'searchable' => $this->searchable,
+            'searchFieldTypes' => $this->searchFieldTypes(),
+            'table' => Crypt::encryptString(static::class),
+        ];
+    }
+
+    /**
+     * Get the unique ID for the datatable
+     * 
+     * @return string
+     */
+
+    protected function getUniqueId(): string
+    {
+        return 'mojar-table-' . Str::random(10);
+    }
+
+    /**
+     * Convert the peramiters to the array
+     * 
+     * @param mixed $params [the peramiters to be converted]
+     * @throws \RuntimeException [if the peramiters is not array]
+     * @return array
+     */
+
+    protected function paramsToArray($params): array
+    {
+        foreach ($params as $param) {
+            if (is_null($param)) {
+                continue;
+            }
+
+            if (!in_array(gettype($param), ['array', 'string', 'integer'])) {
+                throw new \RuntimeException('The peramiters must be an array');
+            }
+        }
+
+        // return Arr::wrap($params);
+        return $params;
+    }
+
+    /**
+     * Get the search field types
+     * 
+     * @return array [the array of the search field types]
+     */
+
+    protected function searchFieldTypes()
+    {
+        return [
+            'text' => 'text',
+            'select' => 'select',
+        ];
+        // return [
+        //     'text' => 'text',
+        //     'select' => 'select',
+        //     'date' => 'date',
+        //     'daterange' => 'daterange',
+        //     'time' => 'time',
+        //     'timeRange' => 'timeRange',
+        //     'number' => 'number',
+        //     'numberRange' => 'numberRange',
+        //     'select2' => 'select2',
+        //     'select2Multiple' => 'select2Multiple',
+        //     'select2Ajax' => 'select2Ajax',
+        //     'select2AjaxMultiple' => 'select2AjaxMultiple',
+        //     'select2Tag' => 'select2Tag',
+        //     'select2TagMultiple' => 'select2TagMultiple',
+        //     'select2TagAjax' => 'select2TagAjax',
+        //     'select2TagAjaxMultiple' => 'select2TagAjaxMultiple',
+        //     'checkbox' => 'checkbox',
+        //     'radio' => 'radio',
+        //     'textarea' => 'textarea',
+        //     'password' => 'password',
+        //     'email' => 'email',
+        //     'url' => 'url',
+        //     'file' => 'file',
+        //     'image' => 'image',
+        //     'color' => 'color',
+        //     'hidden' => 'hidden',
+        //     'html' => 'html',
+        //     'markdown' => 'markdown',
+        //     'wysiwyg' => 'wysiwyg',
+        //     'json' => 'json',
+        //     'array' => 'array',
+        //     'object' => 'object',
+        //     'collection' => 'collection',
+        //     'morphTo' => 'morphTo',
+        //     'morphOne' => 'morphOne',
+        //     'morphMany' => 'morphMany',
+        //     'morphToMany' => 'morphToMany',
+        //     'morphedByMany' => 'morphedByMany',
+        //     'belongsTo' => 'belongsTo',
+        //     'hasOne' => 'hasOne',
+        //     'hasMany' => 'hasMany',
+        //     'hasManyThrough' => 'hasManyThrough',
+        //     'belongsToMany' => 'belongsToMany',
+        //     'morphTo' => 'morphTo',
+        //     'morphOne' => 'morphOne',
+        //     'morphMany' => 'morphMany',
+        //     'morphToMany' => 'morphToMany',
+        //     'morphedByMany' => 'morphedByMany',
+        //     'belongsTo' => 'belongsTo',
+        //     'hasOne' => 'hasOne',
+        //     'hasMany' => 'hasMany',
+        //     'hasManyThrough' => 'hasMany'
+        // ];
     }
 }
