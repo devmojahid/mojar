@@ -255,9 +255,36 @@
             </div>
         </div>
     </div>
+    <form action="{{ route('admin.logout') }}" method="post" style="display: none" class="form-logout">
+        @csrf
+    </form>
     <!-- Tabler Core -->
-    <script src="{{ asset('base/assets') }}/js/tabler.min.js?1684106062" defer></script>
-    <script src="{{ asset('base/assets') }}/js/demo.min.js?1684106062" defer></script>
+    <script src="{{ asset('base/assets') }}/js/tabler.min.js" defer></script>
+    <script src="{{ asset('base/assets') }}/js/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $.extend($.validator.messages, {
+                required: "This field is required.",
+                remote: "Please fix this field.",
+                email: "Please enter a valid email address.",
+                url: "Please enter a valid URL.",
+                date: "Please enter a valid date.",
+                dateISO: "Please enter a valid date (ISO).",
+                number: "Please enter a valid number.",
+                digits: "Please enter only digits.",
+                creditcard: "Please enter a valid credit card number.",
+                equalTo: "Please enter the same value again.",
+                accept: "Please enter a value with a valid extension."
+            });
+
+            $(".form-ajax-handle").validate();
+
+            $(".auth-logout").on('click', function() {
+                $('.form-logout').submit();
+            });
+        });
+    </script>
     @stack('adminScripts')
 </body>
 

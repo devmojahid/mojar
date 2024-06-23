@@ -9,6 +9,7 @@ use Illuminate\Http\Response;
 use Modules\Backend\Http\Requests\LoginRequest;
 use Modules\Backend\Services\LoginService;
 use Modules\Core\Traits\ResponseMessage;
+use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
@@ -53,34 +54,15 @@ class LoginController extends Controller
     }
 
     /**
-     * Show the specified resource.
+     * Logout
      */
-    public function show($id)
-    {
-        return view('backend::show');
-    }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit($id)
+    public function logout(): RedirectResponse
     {
-        return view('backend::edit');
-    }
+        if (Auth::check()) {
+            Auth::logout();
+        }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy($id)
-    {
-        //
+        return redirect()->to('/');
     }
 }

@@ -22,12 +22,15 @@ use Modules\Backend\Http\Controllers\Plugins\PluginController;
 //     // Route::resource('backend', BackendController::class)->names('backend');
 // });
 
-Route::prefix("admin")->name('admin.')->group(function () {
-    // route file require.
-    require __DIR__ . '/components/plugin.route.php';
-    require __DIR__ . '/components/auth.route.php';
+Route::prefix("admin")->middleware(['auth'])
+    ->name('admin.')->group(function () {
+        // route file require.
+        require __DIR__ . '/components/plugin.route.php';
+        Route::get('/dashboard', function () {
+            return view("backend::layouts.base.master.index");
+        })->name('dashboard');
+    });
 
-    Route::get('/', function () {
-        return view("backend::layouts.base.master.index");
-    })->name('dashboard');
+Route::prefix("admin")->name('admin.')->group(function () {
+    require __DIR__ . '/components/auth.route.php';
 });

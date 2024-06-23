@@ -13,6 +13,7 @@
         "laravel/telescope": "^5.1",
         "laravel/tinker": "^2.9",
         "nwidart/laravel-modules": "^11.0",
+        "spatie/laravel-permission": "^6.9",
         "wikimedia/composer-merge-plugin": "^2.1"
     },
     "require-dev": {

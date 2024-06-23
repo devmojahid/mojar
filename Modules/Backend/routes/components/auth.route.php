@@ -20,24 +20,30 @@ use Modules\Backend\Http\Controllers\Auth\SocialLoginController;
 |
 */
 
-// Route::group(
-//     [
-//         'middleware' => 'guest',
-//     ],
-//     function () {
-//     }
-// );
+Route::group(
+    [
+        // 'middleware' => 'guest',
+    ],
+    function () {
+        Route::get("login", [LoginController::class, "index"])->name('login');
+        Route::post("login", [LoginController::class, "store"])->name('login');
 
-Route::get("login", [LoginController::class, "index"])->name('login');
-Route::post("login", [LoginController::class, "store"])->name('login');
+        Route::get("register", [RegisterController::class, "index"])->name('register');
+        Route::post("register", [RegisterController::class, "store"])->name('register');
 
-Route::get("register", [RegisterController::class, "index"])->name('register');
-Route::post("register", [RegisterController::class, "store"])->name('register');
+        Route::get("forgot-password", [ForgotPasswordController::class, "index"])->name('forgot-password');
+        Route::post("/forgot-password", [ForgotPasswordController::class, "store"])->name('forgot-password');
+        Route::get("/reset-password/{email}/{token}", [ResetPasswordController::class, "resetPassword"])->name('reset-password');
+        Route::post("/reset-password/{email}/{token}", [ResetPasswordController::class, "reset"])->name('reset-password');
 
-Route::get("forgot-password", [ForgotPasswordController::class, "index"])->name('forgot-password');
-Route::post("/forgot-password", [ForgotPasswordController::class, "store"])->name('forgot-password');
-Route::get("/reset-password/{email}/{token}", [ResetPasswordController::class, "resetPassword"])->name('reset-password');
-Route::post("/reset-password/{email}/{token}", [ResetPasswordController::class, "reset"])->name('reset-password');
+        Route::get('/auth/{provider}/callback', [SocialLoginController::class, 'handleProviderCallback'])->name('auth.social.callback');
+        Route::get('/auth/{provider}/redirect', [SocialLoginController::class, 'redirectToProvider'])->name('auth.social.redirect');
+    }
+);
 
-Route::get('/auth/{provider}/callback', [SocialLoginController::class, 'handleProviderCallback'])->name('auth.social.callback');
-Route::get('/auth/{provider}/redirect', [SocialLoginController::class, 'redirectToProvider'])->name('auth.social.redirect');
+Route::group(
+    ['middleware' => 'auth'],
+    function () {
+        Route::post("logout", [LoginController::class, "logout"])->name('logout');
+    }
+);
