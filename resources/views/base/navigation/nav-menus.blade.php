@@ -8,9 +8,9 @@
 
     @endphp
 
-    <pre>
+    {{-- <pre>
       {{ dd(HookAction::getAdminMenu()) }}
-    </pre>
+    </pre> --}}
     <li class="nav-item">
         <a class="nav-link" href="./">
             <span class="nav-link-icon d-md-none d-lg-inline-block">
@@ -23,7 +23,7 @@
                     <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
                 </svg>
             </span>
-            <span class="nav-link-title"> Home </span>
+            <span class="nav-link-title"> Homes </span>
         </a>
     </li>
 

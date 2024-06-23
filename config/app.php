@@ -1,5 +1,7 @@
 <?php
 
+use Modules\Core\Supports\Activators\DbActivator;
+
 return [
 
     /*
@@ -14,6 +16,17 @@ return [
     */
 
     'name' => env('APP_NAME', 'Laravel'),
+
+    'plugin_key' => 'plugin_value',
+    'db_activator' => DbActivator::class,
+    'admin_prefix' => 'admin',
+    'plugin_autoload' => true,
+    'cache' => [
+        'enabled' => false,
+        'key' => 'plugin',
+        'lifetime' => 1440,
+        'prefix' => 'plugin_',
+    ],
 
     /*
     |--------------------------------------------------------------------------

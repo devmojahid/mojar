@@ -36,6 +36,7 @@ class CoreServiceProvider extends ServiceProvider
         $this->app->register(EventServiceProvider::class);
         $this->app->register(RouteServiceProvider::class);
         $this->app->register(HookServiceProvider::class);
+        $this->app->register(PluginServiceProvider::class);
         $this->registerSingletons();
     }
 
@@ -81,6 +82,10 @@ class CoreServiceProvider extends ServiceProvider
     {
         $this->publishes([module_path($this->moduleName, 'config/config.php') => config_path($this->moduleNameLower . '.php')], 'config');
         $this->mergeConfigFrom(module_path($this->moduleName, 'config/config.php'), $this->moduleNameLower);
+
+        // config/plugin.php
+        $this->publishes([module_path($this->moduleName, 'config/plugin.php') => config_path('plugin.php')], 'config');
+        $this->mergeConfigFrom(module_path($this->moduleName, 'config/plugin.php'), 'plugin');
     }
 
     /**

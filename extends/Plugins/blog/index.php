@@ -1,7 +1,5 @@
 <?php
 
-use App\classes\BasePlugin;
-
 /**
  * Blog Plugin
  *
@@ -10,45 +8,8 @@ use App\classes\BasePlugin;
  * @link
  * @license     MIT
  */
-class BlogPlugin extends BasePlugin
+class BlogPlugin
 {
-
-    /**
-     * Plugin name.
-     *
-     * @var string
-     */
-    protected $name = 'Blog';
-
-    /**
-     * Plugin version.
-     *
-     * @var string
-     */
-
-    protected $version = '1.0.0';
-
-    /**
-     * Plugin author.
-     *
-     * @var string
-     */
-    protected $author = 'Mojahidul Islam';
-
-
-    /**
-     * Plugin constructor.
-     *
-     * @param string $name
-     * @param string $version
-     * @param string $author
-     */
-    public function __construct(string $name, string $version, string $author )
-    {
-        parent::__construct( $name, $version, $author );
-    }
-
-
     /**
      * Activate the plugin.
      *

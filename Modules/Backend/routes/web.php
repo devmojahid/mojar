@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use Modules\Backend\Http\Controllers\BackendController;
+use Modules\Backend\Http\Controllers\Plugins\PluginController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,7 +23,11 @@ use Modules\Backend\Http\Controllers\BackendController;
 // });
 
 Route::prefix("admin")->name('admin.')->group(function () {
+    // route file require.
+    require __DIR__ . '/components/plugin.route.php';
+    require __DIR__ . '/components/auth.route.php';
+
     Route::get('/', function () {
         return view("backend::layouts.base.master.index");
-    })->name('index');
+    })->name('dashboard');
 });
