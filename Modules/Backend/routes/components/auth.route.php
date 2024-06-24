@@ -22,7 +22,7 @@ use Modules\Backend\Http\Controllers\Auth\SocialLoginController;
 
 Route::group(
     [
-        // 'middleware' => 'guest',
+        'middleware' => 'guest',
     ],
     function () {
         Route::get("login", [LoginController::class, "index"])->name('login');
