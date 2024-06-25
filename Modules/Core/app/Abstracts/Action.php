@@ -10,4 +10,6 @@ abstract class Action
     {
         // 
     }
+
+    abstract public function handle();
 }
