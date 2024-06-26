@@ -12,6 +12,7 @@ class PluginController extends Controller
     {
         $plugins = Plugin::all();
         $count = Plugin::count();
+        // dd($plugins);
         return view("backend::backend.plugin.index", compact("plugins", "count"));
     }
 
@@ -24,7 +25,6 @@ class PluginController extends Controller
     {
         $pluginName = $request->get('plugin');
         Plugin::enable($pluginName);
-        $plugin = Plugin::find($pluginName);
         return redirect()->back();
     }
 
@@ -36,7 +36,17 @@ class PluginController extends Controller
     {
         $pluginName = $request->get('plugin');
         Plugin::disable($pluginName);
-        $plugin = Plugin::find($pluginName);
+        return redirect()->back();
+    }
+
+    /**
+     * Delete the plugin.
+     */
+
+    public function delete(Request $request)
+    {
+        $pluginName = $request->get('plugin');
+        Plugin::delete($pluginName);
         return redirect()->back();
     }
 }

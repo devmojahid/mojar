@@ -17,3 +17,4 @@ use Modules\Backend\Http\Controllers\Plugins\PluginController;
 Route::get('/plugins', [PluginController::class, "index"])->name('plugins');
 Route::post('/plugin/actiate', [PluginController::class, 'activate'])->name('backend.plugin.activate');
 Route::post('/plugin/deactivate', [PluginController::class, 'deactivate'])->name('backend.plugin.deactivate');
+Route::post('/plugin/delete', [PluginController::class, 'delete'])->name('backend.plugin.delete');

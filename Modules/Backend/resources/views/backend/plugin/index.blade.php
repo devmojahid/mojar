@@ -11,9 +11,11 @@
                                 <span class="avatar avatar-lg"
                                     style="background-image: url(./static/avatars/000m.jpg)"></span>
                             </div>
+
                             <div class="col">
                                 <h4 class="card-title m-0">
                                     <a href="#">{{ $plugin->get('name') }}</a>
+                                    <a href="#">{{ $plugin->getDisplayName() }}</a>
                                 </h4>
                                 <div class="text-muted">
                                     Working in Tabler
@@ -22,18 +24,39 @@
                                     <span class="badge bg-green"></span> {{ $plugin->isEnabled() ? 'active' : 'inactive' }}
                                 </div>
                             </div>
-                            <div class="col-auto">
-                                <form action="{{ route('admin.backend.plugin.activate') }}" method="post">
-                                    @csrf
-                                    <input type="hidden" name="plugin" value="{{ $plugin->get('name') }}">
-                                    <button class="btn" type="submit">Activate Plugin</button>
-                                </form>
-                            </div>
+                            @if ($plugin->isEnabled())
+                                <div class="col-auto">
+                                    <form action="{{ route('admin.backend.plugin.deactivate') }}" method="post">
+                                        @csrf
+                                        <input type="hidden" name="plugin" value="{{ $plugin->get('name') }}">
+                                        <button class="btn" type="submit">Deactivate</button>
+                                    </form>
+                                </div>
+                            @else
+                                <div class="col-auto">
+                                    <form action="{{ route('admin.backend.plugin.activate') }}" method="post">
+                                        @csrf
+                                        <input type="hidden" name="plugin" value="{{ $plugin->get('name') }}">
+                                        <button class="btn" type="submit">Activate</button>
+                                    </form>
+                                </div>
+
+                                <div class="col-auto">
+                                    <form action="{{ route('admin.backend.plugin.delete') }}" method="post">
+                                        @csrf
+                                        <input type="hidden" name="plugin" value="{{ $plugin->get('name') }}">
+                                        <button class="btn" type="submit">Delete</button>
+                                    </form>
+                                </div>
+                            @endif
+                            {{-- 
                             <div class="col-auto">
                                 <a href="#" class="btn">
                                     Delete
                                 </a>
-                            </div>
+                            </div> --}}
+
+
                             <div class="col-auto">
                                 <div class="dropdown">
                                     <a href="#" class="btn-action" data-bs-toggle="dropdown" aria-expanded="false">

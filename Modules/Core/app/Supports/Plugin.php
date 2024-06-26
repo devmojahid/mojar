@@ -381,10 +381,20 @@ class Plugin
     public function getExtraLaravel(string $key, $default = null): mixed
     {
         $extra = $this->get('extra', []);
-        if ($laravel = Arr::get($extra, 'laravel', [])) {
+        if ($laravel = Arr::get($extra, 'mojar', [])) {
             return Arr::get($laravel, $key, $default);
         }
         return $default;
+    }
+
+    public function getDisplayName()
+    {
+        $name = $this->getExtraLaravel('name');
+        if (empty($name)) {
+            $name = $this->get('name');
+        }
+
+        return $name;
     }
 
     /**
