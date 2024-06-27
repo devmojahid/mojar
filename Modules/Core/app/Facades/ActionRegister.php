@@ -3,12 +3,12 @@
 namespace Modules\Core\Facades;
 
 use Illuminate\Support\Facades\Facade;
-use Modules\Core\Contracts\GlobalDataContract;
+use Modules\Core\Contracts\ActionRegisterContract;
 
-class GlobalData extends Facade
+class ActionRegister extends Facade
 {
     protected static function getFacadeAccessor()
     {
-        return GlobalDataContract::class;
+        return ActionRegisterContract::class;
     }
 }

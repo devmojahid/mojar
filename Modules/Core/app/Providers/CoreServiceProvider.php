@@ -4,8 +4,12 @@ namespace Modules\Core\Providers;
 
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
+use Modules\Backend\app\Actions\MenuAction;
+use Modules\Core\Contracts\ActionRegisterContract;
 use Modules\Core\Contracts\GlobalDataContract;
 use Modules\Core\Contracts\HookActionContract;
+use Modules\Core\Facades\ActionRegister as ActionRegisterFacade;
+use Modules\Core\Supports\ActionRegister;
 use Modules\Core\Supports\GlobalData;
 use Modules\Core\Supports\HookAction;
 
@@ -26,6 +30,10 @@ class CoreServiceProvider extends ServiceProvider
         $this->registerConfig();
         $this->registerViews();
         $this->loadMigrationsFrom(module_path($this->moduleName, 'database/migrations'));
+
+        ActionRegisterFacade::register([
+            MenuAction::class
+        ]);
     }
 
     /**
@@ -149,6 +157,13 @@ class CoreServiceProvider extends ServiceProvider
             GlobalDataContract::class,
             function () {
                 return new GlobalData();
+            }
+        );
+
+        $this->app->singleton(
+            ActionRegisterContract::class,
+            function ($app) {
+                return new ActionRegister($app);
             }
         );
     }

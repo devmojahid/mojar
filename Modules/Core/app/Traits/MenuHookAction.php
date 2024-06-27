@@ -23,8 +23,8 @@ trait MenuHookAction
             'turbolinks' => true,
         ];
 
+        dd($adminMenu);
         $item = array_merge($opts, $args);
-
         if ($item['parent']) {
             $adminMenu[$item['parent']]['children'][$item['key']] = $item;
         } else {
@@ -38,6 +38,7 @@ trait MenuHookAction
             }
         }
 
+        dd($adminMenu);
         $this->globalData->set('admin_menu', $adminMenu);
     }
 }

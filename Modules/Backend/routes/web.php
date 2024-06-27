@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use Modules\Backend\Http\Controllers\BackendController;
 use Modules\Backend\Http\Controllers\Plugins\PluginController;
+use Modules\Core\Facades\HookAction;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,7 +28,9 @@ Route::prefix("admin")->middleware(['auth'])
         // route file require.
         require __DIR__ . '/components/plugin.route.php';
         Route::get('/dashboard', function () {
-            return view("backend::layouts.base.master.index");
+
+            // dd(HookAction::getAdminMenu());
+            return view("backend::backend.dashboard");
         })->name('dashboard');
     });
 

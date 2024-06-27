@@ -18,5 +18,7 @@ class HookAction implements HookActionContract
     public function getAdminMenu()
     {
         // dd($this->globalData->get('admin_menu', []));
+        // dd(GlobalData::get('admin_menu'));
+        return GlobalData::get('admin_menu');
     }
 }

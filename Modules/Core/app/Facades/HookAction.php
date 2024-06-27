@@ -7,7 +7,7 @@ use Modules\Core\Contracts\HookActionContract;
 
 class HookAction extends Facade
 {
-    protected static function getFacadeAccessor(): string
+    protected static function getFacadeAccessor()
     {
         return HookActionContract::class;
     }

@@ -21,7 +21,7 @@ class GlobalData implements GlobalDataContract
         $this->set($key, $data);
     }
 
-    public function get(string $key, $default = null)
+    public function get(string $key, $default = [])
     {
         return Arr::get($this->values, $key, $default);
     }
