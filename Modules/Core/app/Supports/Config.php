@@ -76,8 +76,6 @@ class Config implements ConfigContract
         $this->configs[$key] = $value;
         $this->cache->store('file')->forever($this->getCacheKey(), $this->configs);
         return $config;
-
-        dd($config);
     }
 
     public function getConfigs(array $keys, string|array $default = null): array

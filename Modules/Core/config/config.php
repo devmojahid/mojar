@@ -1,5 +1,5 @@
 <?php
 
 return [
-    'name' => 'Core',
+    'admin_prefix' => env('ADMIN_PREFIX', 'admins'),
 ];

@@ -21,7 +21,7 @@ class ActionRegister implements ActionRegisterContract
     public function init(): void
     {
         foreach ($this->actions as $action) {
-            app($action)->handle();
+            app($action, [])->handle();
         }
     }
 

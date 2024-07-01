@@ -19,7 +19,6 @@ return [
 
     'plugin_key' => 'plugin_value',
     'db_activator' => DbActivator::class,
-    'admin_prefix' => 'admin',
     'plugin_autoload' => true,
     'cache' => [
         'enabled' => false,

@@ -10,7 +10,6 @@ trait MenuHookAction
     public function addAdminMenu(string $menuTitle, string $menuSlug, array $args = []): void
     {
         $adminMenu = $this->globalData->get('admin_menu');
-
         $opts = [
             'title' => $menuTitle,
             'key' => $menuSlug,
@@ -23,7 +22,7 @@ trait MenuHookAction
             'turbolinks' => true,
         ];
 
-        dd($adminMenu);
+
         $item = array_merge($opts, $args);
         if ($item['parent']) {
             $adminMenu[$item['parent']]['children'][$item['key']] = $item;
@@ -37,8 +36,6 @@ trait MenuHookAction
                 $adminMenu[$item['key']] = $item;
             }
         }
-
-        dd($adminMenu);
         $this->globalData->set('admin_menu', $adminMenu);
     }
 }

@@ -1,5 +1,60 @@
 <ul class="navbar-nav pt-lg-3">
 
+    @php
+        use Modules\Core\Facades\HookAction;
+        use Modules\Core\Facades\GlobalData;
+        use Modules\Core\Supports\MenuCollection;
+
+        $adminPrefix = config('core.admin_prefix');
+        $currentUrl = url()->current();
+        $segment3 = request()->segment(3);
+        $segment2 = request()->segment(2);
+        $items = MenuCollection::make(HookAction::getAdminMenu());
+    @endphp
+
+    @foreach ($items as $item)
+        {{-- @php
+            $dropdown = false;
+        @endphp
+
+        @if ($item->hasChildren())
+            @php
+                $dropdown = true;
+            @endphp
+        @endif --}}
+
+        {{-- <x-sidebar.menu :item="$item" />   backend:: --}}
+        <x-backend::sidebar.menu :item="$item" />
+
+        {{-- <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#navbar-base" data-bs-toggle="dropdown" data-bs-auto-close="false"
+                role="button" aria-expanded="false">
+                <span class="nav-link-icon d-md-none d-lg-inline-block">
+                    @if ($item->get('icon'))
+                        {!! $item->get('icon') !!}
+                    @endif
+                </span>
+                <span class="nav-link-title">
+                    {{ $item->get('title') }}
+                </span>
+            </a>
+
+
+            <div class="dropdown-menu">
+                <div class="dropdown-menu-columns">
+                    <div class="dropdown-menu-column">
+                        <a class="dropdown-item" href="./accordion.html">
+                            Accordion
+                        </a>
+                        <a class="dropdown-item" href="./blank.html">
+                            Blank page
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </li> --}}
+    @endforeach
+
     <li class="nav-item @if (request()->routeIs('admin.dashboard')) active @endif"">
         <a class="nav-link" href="{{ route('admin.dashboard') }}">
             <span class="nav-link-icon d-md-none d-lg-inline-block">
@@ -15,38 +70,6 @@
             <span class="nav-link-title"> Home
             </span>
         </a>
-    </li>
-    <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#navbar-base" data-bs-toggle="dropdown" data-bs-auto-close="false"
-            role="button" aria-expanded="false">
-            <span class="nav-link-icon d-md-none d-lg-inline-block">
-                <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24"
-                    stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round"
-                    stroke-linejoin="round">
-                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                    <path d="M12 3l8 4.5l0 9l-8 4.5l-8 -4.5l0 -9l8 -4.5" />
-                    <path d="M12 12l8 -4.5" />
-                    <path d="M12 12l0 9" />
-                    <path d="M12 12l-8 -4.5" />
-                    <path d="M16 5.25l-8 4.5" />
-                </svg>
-            </span>
-            <span class="nav-link-title">
-                Interface
-            </span>
-        </a>
-        <div class="dropdown-menu">
-            <div class="dropdown-menu-columns">
-                <div class="dropdown-menu-column">
-                    <a class="dropdown-item" href="./accordion.html">
-                        Accordion
-                    </a>
-                    <a class="dropdown-item" href="./blank.html">
-                        Blank page
-                    </a>
-                </div>
-            </div>
-        </div>
     </li>
 
     <li class="nav-item dropdown 

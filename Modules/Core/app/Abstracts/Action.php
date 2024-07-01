@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\Core\app\Abstracts;
+namespace Modules\Core\Abstracts;
 
 abstract class Action
 {

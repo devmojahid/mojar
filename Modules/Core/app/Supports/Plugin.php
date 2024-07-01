@@ -443,7 +443,7 @@ class Plugin
 
     public function flashcache(): void
     {
-        if (config('core,cache.enabled')) {
+        if (config('c.cache.enabled')) {
             $this->cache->store()->forget("plugin.{$this->name}.json");
         }
     }

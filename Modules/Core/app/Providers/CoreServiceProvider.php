@@ -4,7 +4,7 @@ namespace Modules\Core\Providers;
 
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
-use Modules\Backend\app\Actions\MenuAction;
+use Modules\Backend\Actions\MenuAction;
 use Modules\Core\Contracts\ActionRegisterContract;
 use Modules\Core\Contracts\GlobalDataContract;
 use Modules\Core\Contracts\HookActionContract;
@@ -145,18 +145,18 @@ class CoreServiceProvider extends ServiceProvider
     {
 
         $this->app->singleton(
+            GlobalDataContract::class,
+            function () {
+                return new GlobalData();
+            }
+        );
+
+        $this->app->singleton(
             HookActionContract::class,
             function ($app) {
                 return new HookAction(
                     $app[GlobalDataContract::class]
                 );
-            }
-        );
-
-        $this->app->singleton(
-            GlobalDataContract::class,
-            function () {
-                return new GlobalData();
             }
         );
 

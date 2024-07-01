@@ -7,10 +7,6 @@
         $segment3 = request()->segment(3);
 
     @endphp
-
-    {{-- <pre>
-      {{ dd(HookAction::getAdminMenu()) }}
-    </pre> --}}
     <li class="nav-item">
         <a class="nav-link" href="./">
             <span class="nav-link-icon d-md-none d-lg-inline-block">
