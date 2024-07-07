@@ -14,11 +14,19 @@ class UserDatatable extends DataTable
     public function columns()
     {
         return [
-            'id',
-            'name',
-            'email',
-            'created_at',
-            'updated_at',
+            'avatar' =>  [
+                'label' => "avatar",
+                'width' => '5%'
+            ],
+            'name' => [
+                'label' => "Name",
+                'formatter' => [$this, 'rowActionFormatter']
+            ],
+            'email' => [
+                'label' => "Email",
+                'width' => '15%',
+                'align' => 'center'
+            ],
         ];
     }
 }
