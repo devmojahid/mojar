@@ -7,10 +7,15 @@ use Modules\Backend\Datatables\UserDatatable;
 use Modules\Backend\Http\Controllers\BackendController;
 use Modules\Core\Abstracts\DataTable;
 use Modules\Core\Models\User;
+use Modules\Core\Traits\ResourceController;
 
 class UserController extends BackendController
 {
 
+    use ResourceController{
+        getDataForForm as DataForForm;
+        afterSave as tAfterSave;
+    };
 
     /**
      * Get Model resource

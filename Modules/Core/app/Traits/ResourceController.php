@@ -10,6 +10,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Database\Eloquent\Model;
 
 trait ResourceController
 {
@@ -257,6 +258,83 @@ trait ResourceController
     }
 
 
+    public function bulkActions(Request $request, ...$params): JsonResponse|RedirectResponse
+    {
+        $request->validate([
+            'ids' => 'required|array',
+            'action' => 'required'
+        ]);
+
+        $ids = $request->post('ids');
+        $action = $request->post('action');
+
+        $table = $this->getDataTable(...$params);
+
+        // $this->checkPermission('bulk', $this->getModel(...$params), ...$params);
+        $results = [];
+
+        foreach ($ids as $id) {
+            $model = $this->makeModel(...$params)->find($id);
+            $permission  = $action != 'delete' ? 'edit' : 'delete';
+
+            if (!$this->hasPermission($permission, $model, ...$params)) {
+                continue;
+            }
+
+            $results[] = $id;
+        }
+
+        $table->bulkActions($action, $results);
+
+        return $this->success(
+            [
+                'message' => 'Success'
+            ]
+        );
+    }
+
+    public function getDataForSelect(Request $request, ...$params): JsonResponse
+    {
+        $queries = $request->query();
+        $exceptIds = $request->get('except_ids');
+        $model = $this->makeModel(...$params);
+        $limit = $request->get('limit', 10);
+
+        if ($limit > 100) {
+            $limit = 100;
+        }
+
+        $query = $model::query();
+        $query->select(
+            [
+                'id',
+                $model->getFieldName() . 'AS text'
+            ]
+        );
+
+        $query->whereFilter($queries);
+
+        if ($exceptIds) {
+            $query->whereNotIn('id', $exceptIds);
+        }
+
+        $paginate = $query->paginate($limit);
+        $data['results'] = $query->get();
+
+        if ($paginate->nextPageUrl()) {
+            $data['pagination'] = ['more' => true];
+        }
+        return response()->json($data);
+    }
+
+    public function getDetaileModel(Model $model, ...$params): Model
+    {
+        return $model
+            ->where($this->editKey ?? 'id', $this->getPathId($params))
+            ->findOrFail();
+    }
+
+
 
 
 
@@ -296,5 +374,15 @@ trait ResourceController
     protected function afterSave($data, $model, ...$params)
     {
         //
+    }
+
+    protected function makeModel(...$params)
+    {
+        return app($this->getModel(...$params));
+    }
+
+    protected function parseDataForSave(array $attributes, ...$params)
+    {
+        return $attributes;
     }
 }
