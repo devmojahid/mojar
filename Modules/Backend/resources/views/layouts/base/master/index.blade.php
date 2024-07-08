@@ -5,7 +5,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Dashboard - Tabler - Premium and Open Source dashboard template with responsive and high quality UI.</title>
+    <title>Mojar CMS </title>
     <!-- CSS files -->
     <link href="{{ asset('base/assets') }}/css/tabler.min.css?1684106062" rel="stylesheet" />
     <link href="{{ asset('base/assets') }}/css/tabler-flags.min.css?1684106062" rel="stylesheet" />
@@ -289,25 +289,7 @@
             });
         });
     </script>
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            const list = new List('table-default', {
-                sortClass: 'table-sort',
-                listClass: 'table-tbody',
-                valueNames: ['sort-name', 'sort-type', 'sort-city', 'sort-score',
-                    {
-                        attr: 'data-date',
-                        name: 'sort-date'
-                    },
-                    {
-                        attr: 'data-progress',
-                        name: 'sort-progress'
-                    },
-                    'sort-quantity'
-                ]
-            });
-        })
-    </script>
+
     @stack('adminScripts')
 </body>
 

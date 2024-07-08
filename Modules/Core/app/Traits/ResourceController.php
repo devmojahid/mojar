@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Gate;
 
 trait ResourceController
 {
@@ -385,4 +386,137 @@ trait ResourceController
     {
         return $attributes;
     }
+
+    /**
+     * Get data for form
+     *
+     * @param  \Illuminate\Database\Eloquent\Model  $model
+     * @return array
+     * @throws \Exception
+     */
+    protected function getDataForForm($model, ...$params)
+    {
+        $data = [
+            'model' => $model
+        ];
+
+        if (method_exists($this, 'getSetting')) {
+            $data['setting'] = $this->getSetting(...$params);
+        }
+
+        return $data;
+    }
+
+    /**
+     * @throws \Exception
+     */
+    protected function getDataForIndex(...$params)
+    {
+        $dataTable = $this->getDataTable(...$params);
+        $dataTable->setDataUrl(action([static::class, 'datatable'], $params));
+        $dataTable->setActionUrl(action([static::class, 'bulkActions'], $params));
+        $dataTable->setCurrentUrl(action([static::class, 'index'], $params, false));
+
+        $canCreate = $this->hasPermission(
+            'create',
+            $this->getModel(...$params),
+            ...$params
+        );
+
+        $data = [
+            'title' => $this->getTitle(...$params),
+            'dataTable' => $dataTable,
+            'canCreate' => $canCreate,
+            'linkCreate' => action([static::class, 'create'], $params),
+        ];
+
+        if (method_exists($this, 'getSetting')) {
+            $data['setting'] = $this->getSetting(...$params);
+        }
+
+        return $data;
+    }
+
+    protected function getPathIdIndex($params)
+    {
+        return count($params) - 1;
+    }
+
+    protected function getPathId($params)
+    {
+        return $params[$this->getPathIdIndex($params)];
+    }
+
+    protected function storeSuccessResponse($model, $request, ...$params)
+    {
+        $indexRoute = str_replace(
+            '.store',
+            '.index',
+            Route::currentRouteName()
+        );
+
+        return $this->success(
+            [
+                'message' => trans('cms::app.created_successfully'),
+                'redirect' => route($indexRoute, $params),
+            ]
+        );
+    }
+
+    protected function updateSuccessResponse($model, $request, ...$params)
+    {
+        return $this->success(
+            [
+                'message' => trans('cms::app.updated_successfully'),
+            ]
+        );
+    }
+
+    protected function isUpdateRoute()
+    {
+        return Route::getCurrentRoute()->getName() == 'admin.resource.update';
+    }
+
+    protected function checkPermission($ability, $arguments = [], ...$params)
+    {
+        $this->authorize($ability, $arguments);
+    }
+
+    protected function hasPermission($ability, $arguments = [], ...$params)
+    {
+        $response = Gate::inspect($ability, $arguments);
+        return $response->allowed();
+    }
+
+    /**
+     * Get data table resource
+     *
+     * @return DataTable
+     */
+    abstract protected function getDataTable(...$params);
+
+    /**
+     * Validator for store and update
+     *
+     * @param  array  $attributes
+     * @param  mixed  ...$params
+     * @return Validator|array
+     */
+    abstract protected function validator(array $attributes, ...$params);
+
+    /**
+     * Get model resource
+     *
+     * @param  array  $params
+     * @return string // namespace model
+     */
+    abstract protected function getModel(...$params);
+
+    /**
+     * Get title resource
+     *
+     * @param  array  $params
+     * @return string
+     */
+    abstract protected function getTitle(...$params);
 }
