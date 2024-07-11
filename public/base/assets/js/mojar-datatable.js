@@ -35,27 +35,55 @@ class mojarTable {
         let locale = this.locale;
         let status_url = this.status_url;
         let chunk_action = this.chunk_action;
-        let apply_button = this.apply_button;
-        let btn_status = this.status_button;
-        let bulkActionButton = $('.bulk-action-button');
-        apply_button.prop('disabled', true);
-        btn_status.prop('disabled', true);
-        bulkActionButton.prop('disabled', true);
+        let search = this.search;
+        // let apply_button = this.apply_button;
+        // let btn_status = this.status_button;
+        // let bulkActionButton = $('.bulk-action-button');
+        // apply_button.prop('disabled', true);
+        // btn_status.prop('disabled', true);
+        // bulkActionButton.prop('disabled', true);
 
-        const list = new List(table, {
-            sortClass: 'table-sort',
-            listClass: 'table-tbody',
-            valueNames: ['sort-name', 'sort-type', 'sort-city', 'sort-score',
-                {
-                    attr: 'data-date',
-                    name: 'sort-date'
-                },
-                {
-                    attr: 'data-progress',
-                    name: 'sort-progress'
-                },
-                'sort-quantity'
-            ]
+        let dataTableState = new DataTable("#mojarTable", {
+            "dom": '<"top">rt<"card-footer d-flex align-items-center"ip><"clear">',
+            "paging": true,
+            "searching": search,
+            "ordering": true,
+            "info": true,
+            "lengthChange": true,
+            "autoWidth": true,
+            "responsive": true,
+            "pageLength": 5,
+            "lengthMenu": [5, 10, 25, 50, 75, 100],
+            "order": [
+                [1, "asc"]
+            ],
+            "columnDefs": [{
+                "targets": 0,
+                "orderable": false,
+                "searchable": false
+            }],
+            "language": {
+                "search": "",
+                "searchPlaceholder": "Search..."
+            },
+            "initComplete": function () {
+                this.api().columns().every(function () {
+                    var column = this;
+                    var input = document.createElement("input");
+                    $(input).appendTo($(column.footer()).empty())
+                        .on('keyup', function () {
+                            column.search($(this).val(), false, false, true).draw();
+                        });
+                });
+            }
+        });
+
+        $(".search").on("keyup", function () {
+            dataTableState.search($(this).val()).draw();
+        });
+
+        $('.entries-count').on('change', function () {
+            dataTableState.page.len(this.value).draw();
         });
     }
 

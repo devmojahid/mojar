@@ -74,8 +74,8 @@
                     <div class="text-muted">
                         Show
                         <div class="mx-2 d-inline-block">
-                            <input type="text" class="form-control form-control-sm" value="8" size="3"
-                                aria-label="Invoices count">
+                            <input type="text" class="form-control form-control-sm entries-count" value="8"
+                                size="3" aria-label="Invoices count">
                         </div>
                         entries
                     </div>
@@ -89,11 +89,9 @@
                 </div>
             </div>
             <div class="table-responsive">
-                <table class="table card-table table-vcenter text-nowrap datatable mojarTable" id="{{ $uniqueId }}"
+                <table class="table card-table table-vcenter text-nowrap datatable mojarTable" id="mojarTable"
                     @if ($hasDetailFormater) data-detaile-view="true"
                      -detaile-formater="detailFormater" @endif>
-                    <input class="search" placeholder="Search" />
-
                     <thead>
                         <tr>
                             <th data-width="3%" data-checkbox="true"></th>
@@ -115,78 +113,53 @@
                         </tr>
                     </thead>
                     <tbody class="table-tbody">
-                        <tr>
-                            <td><input class="form-check-input m-0 align-middle" type="checkbox"
-                                    aria-label="Select invoice"></td>
-                            <td><span class="text-muted">001401</span></td>
-                            <td><a href="invoice.html" class="text-reset" tabindex="-1">Design
-                                    Works</a></td>
-                            <td class="sort-name">
-                                <span class="flag flag-country-us sort-name"></span>
-                                Carlson Limited
-                            </td>
-                            <td>
-                                87956621
-                            </td>
-                            <td>
-                                15 Dec 2017
-                            </td>
-                            <td>
-                                <span class="badge bg-success me-1"></span> Paid
-                            </td>
-                            <td>$887</td>
-                            <td class="text-end">
-                                <span class="dropdown">
-                                    <button class="btn dropdown-toggle align-text-top" data-bs-boundary="viewport"
-                                        data-bs-toggle="dropdown">Actions</button>
-                                    <div class="dropdown-menu dropdown-menu-end">
-                                        <a class="dropdown-item" href="#">
-                                            Action
-                                        </a>
-                                        <a class="dropdown-item" href="#">
-                                            Another action
-                                        </a>
-                                    </div>
-                                </span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><input class="form-check-input m-0 align-middle" type="checkbox"
-                                    aria-label="Select invoice"></td>
-                            <td><span class="text-muted">001401</span></td>
-                            <td><a href="invoice.html" class="text-reset" tabindex="-1">Design
-                                    Works 2
-                                </a></td>
-                            <td>
-                                <span class="flag flag-country-us sort-name"></span>
-                                Carlson Limited 2
-                            </td>
-                            <td>
-                                87956621 2
-                            </td>
-                            <td>
-                                15 Dec 2017 2
-                            </td>
-                            <td>
-                                <span class="badge bg-success me-1"></span> Paid 2
-                            </td>
-                            <td>$887</td>
-                            <td class="text-end">
-                                <span class="dropdown">
-                                    <button class="btn dropdown-toggle align-text-top" data-bs-boundary="viewport"
-                                        data-bs-toggle="dropdown">Actions</button>
-                                    <div class="dropdown-menu dropdown-menu-end">
-                                        <a class="dropdown-item" href="#">
-                                            Action
-                                        </a>
-                                        <a class="dropdown-item" href="#">
-                                            Another action
-                                        </a>
-                                    </div>
-                                </span>
-                            </td>
-                        </tr>
 
+                        @for ($i = 0; $i < 10; $i++)
+                            <tr>
+                                <td>
+                                    <input class="form-check-input m-0 align-middle" type="checkbox"
+                                        aria-label="Select invoice">
+                                </td>
+                                <td>
+                                    <span>
+                                        {{ $i + 1 }}
+                                    </span>
+                                </td>
+                                <td>
+                                    <a href="invoice.html" class="text-reset" tabindex="-1">Design
+                                        Works {{ $i + 1 }}
+                                    </a>
+                                </td>
+                                <td class="sort-name">
+                                    <span class="flag flag-country-us sort-name"></span>
+                                    Carlson Limited {{ $i + 1 }}
+                                </td>
+                                <td>
+                                    87956621
+                                </td>
+                                <td>
+                                    15 Dec 2017
+                                </td>
+                                <td>
+                                    <span class="badge bg-success me-1"></span> Paid
+                                </td>
+                                <td>$887</td>
+                                <td class="text-end">
+                                    <span class="dropdown">
+                                        <button class="btn dropdown-toggle align-text-top" data-bs-boundary="viewport"
+                                            data-bs-toggle="dropdown">Actions</button>
+                                        <div class="dropdown-menu dropdown-menu-end">
+                                            <a class="dropdown-item" href="#">
+                                                Action
+                                            </a>
+                                            <a class="dropdown-item" href="#">
+                                                Another action
+                                            </a>
+                                        </div>
+                                    </span>
+                                </td>
+                            </tr>
+                        @endfor
                     </tbody>
                 </table>
             </div>
@@ -231,7 +204,6 @@
     </div>
 </div>
 
-
 <script src="{{ asset('base/assets') }}/libs/list.js/dist/list.min.js" defer></script>
 <script src="{{ asset('base/assets') }}/js/mojar-datatable.js" defer></script>
 <script>
@@ -241,7 +213,8 @@
             page_size: "{{ $perPage }}",
             sort_name: "{{ $sortName }}",
             url: "{!! $dataUrl !!}",
-            action_url: "{!! $action_url !!}"
+            action_url: "{!! $action_url !!}",
+            search: false,
         });
     });
 </script>

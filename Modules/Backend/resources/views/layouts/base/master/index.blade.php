@@ -7,11 +7,8 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Mojar CMS </title>
     <!-- CSS files -->
-    <link href="{{ asset('base/assets') }}/css/tabler.min.css?1684106062" rel="stylesheet" />
-    <link href="{{ asset('base/assets') }}/css/tabler-flags.min.css?1684106062" rel="stylesheet" />
-    <link href="{{ asset('base/assets') }}/css/tabler-payments.min.css?1684106062" rel="stylesheet" />
-    <link href="{{ asset('base/assets') }}/css/tabler-vendors.min.css?1684106062" rel="stylesheet" />
-    <link href="{{ asset('base/assets') }}/css/demo.min.css?1684106062" rel="stylesheet" />
+    <link href="{{ asset('base/assets/css/tabler.min.css') }}" rel="stylesheet" />
+    <link href="{{ asset('base/assets/libs/data-tables/dist/datatables.min.css') }}" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
         integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -262,9 +259,9 @@
         @csrf
     </form>
     <!-- Tabler Core -->
-    <script src="{{ asset('base/assets') }}/js/tabler.min.js" defer></script>
-    <script src="{{ asset('base/assets') }}/libs/list.js/dist/list.min.js"></script>
-    <script src="{{ asset('base/assets') }}/js/jquery.min.js"></script>
+    <script src="{{ asset('base/assets/js/tabler.min.js') }}" defer></script>
+    <script src="{{ asset('base/assets/js/jquery.min.js') }}" defer></script>
+    <script src="{{ asset('base/assets/libs/data-tables/dist/datatables.min.js') }}" defer></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js"></script>
     <script type="text/javascript">
         $(document).ready(function() {
