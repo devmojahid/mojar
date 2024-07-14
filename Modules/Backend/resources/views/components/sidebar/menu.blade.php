@@ -1,4 +1,4 @@
-{{-- @props(['item'])
+@props(['item'])
 <li class="nav-item @if ($item->hasChildren()) dropdown @endif">
     <a class="nav-link @if ($item->hasChildren()) dropdown-toggle @endif" href="{{ $item->get('url', '#') }}"
         @if ($item->hasChildren()) data-bs-toggle="dropdown" data-bs-auto-close="false" role="button" aria-expanded="false" @endif>
@@ -17,10 +17,12 @@
             <div class="dropdown-menu-columns">
                 <div class="dropdown-menu-column">
                     @foreach ($item->getChildrens() as $child)
+                        {{-- {{ $child->get('title') }} --}}
+                        {{-- <x-backend::sidebar.menu :item="$child" /> --}}
                         <x-backend::sidebar.menu :item="$child" />
                     @endforeach
                 </div>
             </div>
         </div>
     @endif
-</li> --}}
+</li>

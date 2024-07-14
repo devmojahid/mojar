@@ -214,7 +214,7 @@
             sort_name: "{{ $sortName }}",
             url: "{!! $dataUrl !!}",
             action_url: "{!! $action_url !!}",
-            search: false,
+            search: true,
         });
     });
 </script>

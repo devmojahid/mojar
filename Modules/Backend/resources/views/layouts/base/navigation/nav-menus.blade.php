@@ -13,7 +13,7 @@
     @endphp
 
     @foreach ($items as $item)
-        {{-- @php
+        @php
             $dropdown = false;
         @endphp
 
@@ -21,9 +21,9 @@
             @php
                 $dropdown = true;
             @endphp
-        @endif --}}
+        @endif
 
-        {{-- <x-sidebar.menu :item="$item" />   backend:: --}}
+        {{-- <x-sidebar.menu :item="$item" /> backend:: --}}
         <x-backend::sidebar.menu :item="$item" />
 
         {{-- <li class="nav-item dropdown">

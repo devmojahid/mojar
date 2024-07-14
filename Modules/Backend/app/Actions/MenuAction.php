@@ -36,7 +36,7 @@ class MenuAction extends Action
         );
 
         HookAction::addAdminMenu(
-            "Dashboard",
+            "Dashboard 1",
             'dashboard',
             [
                 'icon' => 'fa fa-dashboard',
