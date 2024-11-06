@@ -262,27 +262,29 @@
     <script src="{{ asset('base/assets/js/tabler.min.js') }}" defer></script>
     <script src="{{ asset('base/assets/js/jquery.min.js') }}" defer></script>
     <script src="{{ asset('base/assets/libs/data-tables/dist/datatables.min.js') }}" defer></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js"></script>
-    <script type="text/javascript">
-        $(document).ready(function() {
-            $.extend($.validator.messages, {
-                required: "This field is required.",
-                remote: "Please fix this field.",
-                email: "Please enter a valid email address.",
-                url: "Please enter a valid URL.",
-                date: "Please enter a valid date.",
-                dateISO: "Please enter a valid date (ISO).",
-                number: "Please enter a valid number.",
-                digits: "Please enter only digits.",
-                creditcard: "Please enter a valid credit card number.",
-                equalTo: "Please enter the same value again.",
-                accept: "Please enter a value with a valid extension."
-            });
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js" defer></script>
+    <script type="text/javascript" defer>
+        window.addEventListener('load', function() {
+            $(document).ready(function() {
+                $.extend($.validator.messages, {
+                    required: "This field is required.",
+                    remote: "Please fix this field.",
+                    email: "Please enter a valid email address.",
+                    url: "Please enter a valid URL.",
+                    date: "Please enter a valid date.",
+                    dateISO: "Please enter a valid date (ISO).",
+                    number: "Please enter a valid number.",
+                    digits: "Please enter only digits.",
+                    creditcard: "Please enter a valid credit card number.",
+                    equalTo: "Please enter the same value again.",
+                    accept: "Please enter a value with a valid extension."
+                });
 
-            $(".form-ajax-handle").validate();
+                $(".form-ajax-handle").validate();
 
-            $(".auth-logout").on('click', function() {
-                $('.form-logout').submit();
+                $(".auth-logout").on('click', function() {
+                    $('.form-logout').submit();
+                });
             });
         });
     </script>

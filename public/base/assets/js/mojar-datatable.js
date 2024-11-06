@@ -36,12 +36,12 @@ class mojarTable {
         let status_url = this.status_url;
         let chunk_action = this.chunk_action;
         let search = this.search;
-        // let apply_button = this.apply_button;
-        // let btn_status = this.status_button;
-        // let bulkActionButton = $('.bulk-action-button');
-        // apply_button.prop('disabled', true);
-        // btn_status.prop('disabled', true);
-        // bulkActionButton.prop('disabled', true);
+        let apply_button = $(this.apply_button);
+        let btn_status = $(this.status_button);
+        let bulkActionButton = $('.bulk-action-button');
+        apply_button.prop('disabled', true);
+        btn_status.prop('disabled', true);
+        bulkActionButton.prop('disabled', true);
 
         let dataTableState = new DataTable("#mojarTable", {
             "dom": '<"top">rt<"card-footer d-flex align-items-center"ip><"clear">',
@@ -85,6 +85,7 @@ class mojarTable {
         $('.entries-count').on('change', function () {
             dataTableState.page.len(this.value).draw();
         });
+
     }
 
 

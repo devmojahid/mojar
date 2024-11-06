@@ -14,7 +14,8 @@
         "laravel/tinker": "^2.9",
         "nwidart/laravel-modules": "^11.0",
         "spatie/laravel-permission": "^6.9",
-        "wikimedia/composer-merge-plugin": "^2.1"
+        "wikimedia/composer-merge-plugin": "^2.1",
+        "yajra/laravel-datatables-oracle": "^11.0"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.13",
